@@ -9,14 +9,16 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/client")
+@Tag(name = "Clients", description = "Operations related to clients")
 public class ClientController {
 
     private final ClientService clientService;
-    
+
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
