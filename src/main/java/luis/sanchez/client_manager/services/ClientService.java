@@ -4,7 +4,6 @@ import luis.sanchez.client_manager.dto.ClientDto;
 import luis.sanchez.client_manager.mappers.ClientMapper;
 import luis.sanchez.client_manager.models.Client;
 import luis.sanchez.client_manager.repositories.ClientRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
