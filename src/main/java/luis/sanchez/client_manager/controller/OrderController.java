@@ -3,6 +3,7 @@ package luis.sanchez.client_manager.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import luis.sanchez.client_manager.dto.OrderDto;
@@ -20,18 +21,21 @@ public class OrderController {
     }
 
     @PostMapping()
+    @Operation (summary = "Create a new order for a client")
     public ResponseEntity<Order> createOrder(@RequestParam(name = "clientId") String clientId,
             @Valid @RequestBody OrderDto orderDto) {
         return orderService.createOrder(clientId, orderDto);
     }
 
     @PutMapping("/{sku}")
+    @Operation(summary = "Update an order by sku")
     public ResponseEntity<Order> updateOrder(@RequestParam(name = "clientId") String clientId,
             @PathVariable String sku, @Valid @RequestBody OrderDto orderDto) {
         return orderService.updateOrder(clientId, sku, orderDto);
     }
 
     @DeleteMapping("/{sku}")
+    @Operation(summary = "Delete an order by sku")
     public ResponseEntity<Void> deleteOrder(@RequestParam(name = "clientId") String clientId,
             @PathVariable String sku) {
         return orderService.deleteOrder(clientId, sku);

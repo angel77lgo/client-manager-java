@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ClientDto {
+    private String id;
     @NotEmpty(message = "firstName is required")
     private String firstName;
     @NotEmpty(message = "lastName is required")
