@@ -8,7 +8,7 @@ import lombok.Setter;
 public class Order {
     private String sku;
 
-    private String quantity;
+    private int quantity;
 
-    private String price;
+    private double price;
 }

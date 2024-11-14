@@ -1,8 +1,10 @@
 package luis.sanchez.client_manager.controller;
 
 import luis.sanchez.client_manager.dto.ClientDto;
+import luis.sanchez.client_manager.models.Client;
 import luis.sanchez.client_manager.services.ClientService;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +25,22 @@ public class ClientController {
     }
 
     @GetMapping()
-    public void getAllClients() {
-        clientService.getAllClients();
+    public ResponseEntity<List<Client>> getAllClients() {
+        return clientService.getAllClients();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Client> getClientById(@PathVariable String id) {
+        return clientService.getClientById(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ClientDto> updateClient(@PathVariable String id, @Valid @RequestBody ClientDto clientDto) {
+        return clientService.updateClient(id, clientDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteClient(@PathVariable String id) {
+        return clientService.deleteClient(id);
     }
 }

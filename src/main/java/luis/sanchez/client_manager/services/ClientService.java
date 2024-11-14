@@ -21,9 +21,18 @@ public class ClientService {
     @Autowired
     private ClientMapper clientMapper;
 
-    public void getAllClients() {
+    public ResponseEntity<List<Client>> getAllClients() {
        List<Client> clients = clientRepository.findAll();
-       System.out.println(clients);
+       
+       return ResponseEntity.ok().body(clients);
+    }
+
+    public ResponseEntity<Client> getClientById(String id){
+        Client client = clientRepository.findById(id).orElse(null);
+        if (client == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(client);
     }
 
     @Transactional
@@ -31,5 +40,33 @@ public class ClientService {
         Client newClient = clientMapper.toEntity(clientDto);
         clientRepository.save(newClient);
         return ResponseEntity.status(HttpStatus.CREATED).body(clientDto);
+    }
+
+    @Transactional
+    public ResponseEntity<ClientDto> updateClient(String id, ClientDto clientDto) {
+        Client client = clientRepository.findById(id).orElse(null);
+        if (client == null) {
+            return ResponseEntity.notFound().build();
+        }
+        client.setFirstName(clientDto.getFirstName());
+        client.setLastName(clientDto.getLastName());
+        client.setSecondLastName(clientDto.getSecondLastName());
+        client.setAddress(clientDto.getAddress());
+
+        clientRepository.save(client);
+
+        ClientDto updatedClientDto = clientMapper.toDto(client);
+       
+        return ResponseEntity.ok().body(updatedClientDto);
+    }
+
+    @Transactional
+    public ResponseEntity<Void> deleteClient(String id) {
+        Client client = clientRepository.findById(id).orElse(null);
+        if (client == null) {
+            return ResponseEntity.notFound().build();
+        }
+        clientRepository.delete(client);
+        return ResponseEntity.noContent().build();
     }
 }
