@@ -1,19 +1,21 @@
 package luis.sanchez.client_manager.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
 import luis.sanchez.client_manager.dto.OrderDto;
 import luis.sanchez.client_manager.models.Order;
-import luis.sanchez.client_manager.services.Orderservice;
+import luis.sanchez.client_manager.services.OrderService;
 
 @RestController
 @RequestMapping("/order")
 public class OrderController {
-    @Autowired
-    private Orderservice orderService;
+
+    private final OrderService orderService;
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     @PostMapping()
     public ResponseEntity<Order> createOrder(@RequestParam(name = "clientId") String clientId,

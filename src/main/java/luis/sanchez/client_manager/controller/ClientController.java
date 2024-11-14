@@ -6,7 +6,6 @@ import luis.sanchez.client_manager.services.ClientService;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,8 +15,11 @@ import jakarta.validation.Valid;
 @RequestMapping("/client")
 public class ClientController {
 
-    @Autowired
-    private ClientService clientService;
+    private final ClientService clientService;
+    
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     @PostMapping()
     public ResponseEntity<ClientDto> createClient(@Valid @RequestBody ClientDto clientDto) {
